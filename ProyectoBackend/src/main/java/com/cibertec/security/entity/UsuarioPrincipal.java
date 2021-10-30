@@ -49,7 +49,7 @@ public class UsuarioPrincipal implements UserDetails {
 	public static UsuarioPrincipal build(Usuario usuario){
         List<GrantedAuthority> authorities =
                 usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol
-                .getRolNombre().name())).collect(Collectors.toList());
+                .getRolNombre())).collect(Collectors.toList());
         return new UsuarioPrincipal(usuario.getNombreUsuario(),usuario.getPassword(),usuario.getNombre() ,usuario.getPaterno(),
         		usuario.getMaterno(), usuario.getDni(), usuario.getDireccion(), usuario.getCelular(),usuario.getEmail(), usuario.getRuc(), usuario.getRazonSocial(), authorities);
     }

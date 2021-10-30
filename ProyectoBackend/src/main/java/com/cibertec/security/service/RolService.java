@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cibertec.repository.RolRepository;
 import com.cibertec.security.entity.Rol;
-import com.cibertec.security.enums.RolNombre;
+
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class RolService {
     @Autowired
     RolRepository rolRepository;
 
-    public Optional<Rol> getByRolNombre(RolNombre rolNombre){
+    public Optional<Rol> getByRolNombre(String rolNombre){
         return rolRepository.findByRolNombre(rolNombre);
     }
 

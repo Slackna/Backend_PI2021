@@ -18,7 +18,6 @@ import com.cibertec.security.dto.JwtDto;
 import com.cibertec.security.dto.LoginUsuario;
 import com.cibertec.security.dto.NuevoUsuario;
 import com.cibertec.security.entity.Rol;
-import com.cibertec.security.enums.RolNombre;
 import com.cibertec.security.jwt.JwtProvider;
 import com.cibertec.security.service.RolService;
 import com.cibertec.service.UsuarioService;

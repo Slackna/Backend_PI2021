@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cibertec.entity.Usuario;
 import com.cibertec.security.dto.NuevoUsuario;
 import com.cibertec.security.entity.Rol;
-import com.cibertec.security.enums.RolNombre;
 import com.cibertec.security.service.RolService;
 import com.cibertec.service.UsuarioService;
 import com.cibertec.util.Mensaje;
@@ -70,11 +69,11 @@ public class UsuarioController {
 	        Set<Rol> roles = new HashSet<>();
 	        
 	        Rol rol = new Rol();
-	        rol.setId(1);
-	        rol.setRolNombre(RolNombre.ROLE_USER);
+	        rol.setId(2);
+	        rol.setRolNombre("ROLE_USER");
 	        roles.add(rol);
 	        if(nuevoUsuario.getRoles().contains("admin"))
-	            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+	            roles.add(rolService.getByRolNombre("ROLE_ADMIN").get());
 	        usuario.setRoles(roles);
 	        usuarioService.save(usuario);
 	        return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
