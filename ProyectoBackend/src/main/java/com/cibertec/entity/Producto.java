@@ -27,7 +27,7 @@ public class Producto {
 	private Categoria categoria;
 
 	@Lob
-	private byte[] img;
+	private byte[] img1;
 	public int getIdProducto() {
 		return idProducto;
 	}
@@ -73,28 +73,21 @@ public class Producto {
 		this.condicion = condicion;
 	}
 	
-	public byte[] getImg() {
-		return img;
-	}
-	public void setImg(byte[] img) {
-		this.img = img;
-	}
 	public Categoria getCategoria() {
 		return categoria;
 	}
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	public byte[] getImg1() {
+		return img1;
+	}
+	public void setImg1(byte[] img1) {
+		this.img1 = img1;
+	}
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-
 	
 }

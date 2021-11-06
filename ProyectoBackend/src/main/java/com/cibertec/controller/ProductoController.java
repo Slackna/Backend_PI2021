@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cibertec.entity.Categoria;
 import com.cibertec.entity.Producto;
 import com.cibertec.service.ProductoService;
 import com.cibertec.util.Constantes;
@@ -40,36 +43,43 @@ public class ProductoController {
 	}
 	
 	
-	@PreAuthorize("hasRole('USER')")
-	@PostMapping(value = "/registraProducto")
 	@ResponseBody
-	public  ResponseEntity<Map<String, Object>> insertaProducto(@RequestBody Producto obj){
+	@PostMapping(value = "/registraProducto", consumes = "multipart/form-data")
+	public Map<String, Object> registra(@RequestParam("nombre") String nombre, 
+										@RequestParam("marca") String marca,
+										@RequestParam("precio") double precio, 
+										@RequestParam("direccion") String direccion,
+										@RequestParam("descripcion") String descripcion,
+										@RequestParam("condicion") String condicion,
+										@RequestParam("id_categoria") Categoria categoria ,
+										@RequestParam("img1") List<MultipartFile> img1) {
 		Map<String, Object> salida = new HashMap<>();
 		try {
-			Producto objSalida = productoService.insertaActualizaProducto(obj);
-			if (objSalida == null) {
-				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-			}else {
-				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-			}
+
+			
+			//Registra en la base de datos
+			Producto obj = new Producto();
+			obj.setNombre(nombre);
+			obj.setPrecio(precio);
+			obj.setDireccion(direccion);
+			obj.setDescripcion(descripcion);
+			obj.setCategoria(categoria);
+			
+			
+				Producto objSalida = productoService.insertaActualizaProducto(obj, img1);
+				if (objSalida == null) {
+					salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+				} else {
+					salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+				}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-		}
-		return ResponseEntity.ok(salida);
+		} 
+		return salida;
 	}
-	@RequestMapping(value = "/verImagen/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
-	public ResponseEntity<byte[]> getImage(@PathVariable("id") int imageId) throws IOException {
-
-		Optional<Producto> optProducto= productoService.obtienePorId(imageId);
-
-		byte[] imageContent = optProducto.get().getImg();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.IMAGE_JPEG);
-
-		return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-	}
+	
 	
 
 }
