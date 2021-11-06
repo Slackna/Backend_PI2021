@@ -37,49 +37,42 @@ public class ProductoController {
 
 	@GetMapping(value = "/listaProducto")
 	@ResponseBody
-	public ResponseEntity<List<Producto>> listaProducto(){
+	public ResponseEntity<List<Producto>> listaProducto() {
 		List<Producto> lista = productoService.listaProducto();
 		return ResponseEntity.ok(lista);
 	}
-	
-	
+
 	@ResponseBody
 	@PostMapping(value = "/registraProducto", consumes = "multipart/form-data")
-	public Map<String, Object> registra(@RequestParam("nombre") String nombre, 
-										@RequestParam("marca") String marca,
-										@RequestParam("precio") double precio, 
-										@RequestParam("direccion") String direccion,
-										@RequestParam("descripcion") String descripcion,
-										@RequestParam("condicion") String condicion,
-										@RequestParam("id_categoria") Categoria categoria ,
-										@RequestParam("img1") List<MultipartFile> img1) {
+	public Map<String, Object> registra(@RequestParam("nombre") String nombre, @RequestParam("marca") String marca,
+			@RequestParam("precio") double precio, @RequestParam("direccion") String direccion,
+			@RequestParam("descripcion") String descripcion, @RequestParam("condicion") String condicion,
+			@RequestParam("id_categoria") Categoria categoria, @RequestParam("img1") List<MultipartFile> img1) {
 		Map<String, Object> salida = new HashMap<>();
 		try {
 
-			
-			//Registra en la base de datos
+			// Registra en la base de datos
 			Producto obj = new Producto();
 			obj.setNombre(nombre);
+			obj.setMarca(marca);
 			obj.setPrecio(precio);
 			obj.setDireccion(direccion);
+			obj.setCondicion(condicion);
 			obj.setDescripcion(descripcion);
 			obj.setCategoria(categoria);
-			
-			
-				Producto objSalida = productoService.insertaActualizaProducto(obj, img1);
-				if (objSalida == null) {
-					salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-				} else {
-					salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-				}
-			
+
+			Producto objSalida = productoService.insertaActualizaProducto(obj, img1);
+			if (objSalida == null) {
+				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+			} else {
+				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-		} 
+		}
 		return salida;
 	}
-	
-	
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cibertec.entity.Categoria;
 import com.cibertec.entity.Producto;
 import com.cibertec.repository.ProductoRepository;
 
@@ -27,20 +28,20 @@ public class ProductoServicelmpl   implements ProductoService {
 	@Override
 	@Transactional
 	public Producto insertaActualizaProducto(Producto obj, List<MultipartFile> lstFoto) {
-		Producto objProducto = null;
-		try {
-			objProducto=  repository.save(obj);
-			for (MultipartFile aux : lstFoto) {
-				objProducto  = new Producto();
-				objProducto.setImg1(aux.getBytes());
-				repository.save(objProducto);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return objProducto;
-	}
+        Producto objProducto = null;
+        try {
+            objProducto=  repository.save(obj);
+          
+            for (MultipartFile aux : lstFoto) {
+                objProducto.setImg1(aux.getBytes());
+                repository.save(objProducto);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objProducto;
+    }
 	
 	@Override
 	public Optional<Producto> obtienePorId(int idProducto) {

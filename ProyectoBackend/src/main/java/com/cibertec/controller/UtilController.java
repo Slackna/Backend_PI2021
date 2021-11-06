@@ -18,15 +18,13 @@ import com.cibertec.service.CategoriaService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UtilController {
 
-	
 	@Autowired
 	private CategoriaService categoriaService;
-	
+
 	@GetMapping("/listaCategoria")
 	@ResponseBody
 	public List<Categoria> listaCategoria() {
 		return categoriaService.listaCategoria();
 	}
-	
-	
+
 }
