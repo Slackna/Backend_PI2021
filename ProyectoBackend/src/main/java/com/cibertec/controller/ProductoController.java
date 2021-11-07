@@ -42,26 +42,20 @@ public class ProductoController {
 		return ResponseEntity.ok(lista);
 	}
 
+	@GetMapping(value = "/listaProductoByCat")
 	@ResponseBody
-	@PostMapping(value = "/registraProducto", consumes = "multipart/form-data")
-	public Map<String, Object> registra(@RequestParam("nombre") String nombre, @RequestParam("marca") String marca,
-			@RequestParam("precio") double precio, @RequestParam("direccion") String direccion,
-			@RequestParam("descripcion") String descripcion, @RequestParam("condicion") String condicion,
-			@RequestParam("id_categoria") Categoria categoria, @RequestParam("img1") List<MultipartFile> img1) {
+	public ResponseEntity<List<Producto>> listaProductoByCat(@RequestBody Categoria categoria) {
+		List<Producto> lista = productoService.listaProductoByCat(categoria);
+		return ResponseEntity.ok(lista);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/registraProducto")
+	public Map<String, Object> registra(@RequestBody Producto nuevoProducto) {
 		Map<String, Object> salida = new HashMap<>();
 		try {
 
-			// Registra en la base de datos
-			Producto obj = new Producto();
-			obj.setNombre(nombre);
-			obj.setMarca(marca);
-			obj.setPrecio(precio);
-			obj.setDireccion(direccion);
-			obj.setCondicion(condicion);
-			obj.setDescripcion(descripcion);
-			obj.setCategoria(categoria);
-
-			Producto objSalida = productoService.insertaActualizaProducto(obj, img1);
+			Producto objSalida = productoService.insertaActualizaProducto(nuevoProducto);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			} else {

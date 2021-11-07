@@ -27,15 +27,12 @@ public class ProductoServicelmpl   implements ProductoService {
 
 	@Override
 	@Transactional
-	public Producto insertaActualizaProducto(Producto obj, List<MultipartFile> lstFoto) {
+	public Producto insertaActualizaProducto(Producto obj) {
         Producto objProducto = null;
         try {
             objProducto=  repository.save(obj);
-          
-            for (MultipartFile aux : lstFoto) {
-                objProducto.setImg1(aux.getBytes());
-                repository.save(objProducto);
-            }
+            repository.save(objProducto);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,6 +44,12 @@ public class ProductoServicelmpl   implements ProductoService {
 	public Optional<Producto> obtienePorId(int idProducto) {
 		// TODO Auto-generated method stub
 		return repository.findById(idProducto);
+	}
+
+	@Override
+	public List<Producto> listaProductoByCat(Categoria categoria) {
+		// TODO Auto-generated method stub
+		return repository.findByCat(categoria.getId_categoria());
 	}
 
 

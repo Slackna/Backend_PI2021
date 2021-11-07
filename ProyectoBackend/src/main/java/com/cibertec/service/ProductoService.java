@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cibertec.entity.Categoria;
 import com.cibertec.entity.Producto;
 
 public interface ProductoService {
 	public abstract List<Producto> listaProducto();
-	public abstract Producto insertaActualizaProducto(Producto obj,List<MultipartFile> lstFoto);
+	public abstract List<Producto> listaProductoByCat(Categoria categoria);
+	public abstract Producto insertaActualizaProducto(Producto obj);
 	public abstract Optional<Producto> obtienePorId(int idProducto);
 }
