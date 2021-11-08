@@ -46,10 +46,11 @@ public class ProductoServicelmpl   implements ProductoService {
 		return repository.findById(idProducto);
 	}
 
+
 	@Override
-	public List<Producto> listaProductoByCat(Categoria categoria) {
+	public List<Producto> listaProductoByCat(int idCategoria) {
 		// TODO Auto-generated method stub
-		return repository.findByCat(categoria.getId_categoria());
+		return repository.findByCat(idCategoria);
 	}
 
 

@@ -10,7 +10,7 @@ import com.cibertec.entity.Producto;
 
 public interface ProductoService {
 	public abstract List<Producto> listaProducto();
-	public abstract List<Producto> listaProductoByCat(Categoria categoria);
+	public abstract List<Producto> listaProductoByCat(int  idCategoria);
 	public abstract Producto insertaActualizaProducto(Producto obj);
 	public abstract Optional<Producto> obtienePorId(int idProducto);
 }

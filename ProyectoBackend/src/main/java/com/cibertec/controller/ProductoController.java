@@ -44,8 +44,8 @@ public class ProductoController {
 
 	@GetMapping(value = "/listaProductoByCat")
 	@ResponseBody
-	public ResponseEntity<List<Producto>> listaProductoByCat(@RequestBody Categoria categoria) {
-		List<Producto> lista = productoService.listaProductoByCat(categoria);
+	public ResponseEntity<List<Producto>> listaProductoByCat(int idCategoria) {
+		List<Producto> lista = productoService.listaProductoByCat(idCategoria);
 		return ResponseEntity.ok(lista);
 	}
 	
