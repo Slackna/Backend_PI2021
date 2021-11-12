@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cibertec.entity.Categoria;
 import com.cibertec.entity.Producto;
+import com.cibertec.entity.Usuario;
 import com.cibertec.repository.ProductoRepository;
 
 @Service

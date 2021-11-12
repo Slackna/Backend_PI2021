@@ -68,5 +68,10 @@ public class ProductoController {
 		}
 		return salida;
 	}
-
+	
+	 @GetMapping("/detail/{id}")
+	    public ResponseEntity<Producto> getById(@PathVariable("id") int id){
+	        Producto producto = productoService.obtienePorId(id).get();
+	        return new ResponseEntity(producto, HttpStatus.OK);
+	    }
 }

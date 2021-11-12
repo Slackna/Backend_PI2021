@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -28,9 +29,15 @@ public class Producto {
 
 	@Lob
 	private byte[] img1;
+    
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
+	
 	public int getIdProducto() {
 		return idProducto;
 	}
+	
 	public void setIdProducto(int idProducto) {
 		this.idProducto = idProducto;
 	}
@@ -85,8 +92,20 @@ public class Producto {
 	public void setImg1(byte[] img1) {
 		this.img1 = img1;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	
+
+  
 	
+
 	
 	
 	

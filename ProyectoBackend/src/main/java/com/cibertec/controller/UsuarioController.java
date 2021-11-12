@@ -2,6 +2,7 @@ package com.cibertec.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -14,12 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cibertec.entity.Producto;
 import com.cibertec.entity.Usuario;
 import com.cibertec.security.dto.NuevoUsuario;
 import com.cibertec.security.entity.Rol;
@@ -50,6 +53,14 @@ public class UsuarioController {
 		List<Usuario> lista = usuarioService.listaUsuario();
 		return ResponseEntity.ok(lista);
 	}
+	
+	 @GetMapping("/buscarUsuario/{nombre}")
+	    public ResponseEntity<Usuario> getByNombreUsuario(@PathVariable("nombre") String nombre){
+	        Optional<Usuario> usuario = usuarioService.getByNombreUsuario(nombre);
+	        return new ResponseEntity(usuario, HttpStatus.OK);
+	    }
+	
+	
 
 	@PostMapping("/registraUsuario")
 	public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
