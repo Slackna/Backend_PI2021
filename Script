@@ -1,0 +1,250 @@
+DROP DATABASE TIENDA2021v2;
+CREATE DATABASE TIENDA2021v2;
+USE TIENDA2021v2;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+CREATE TABLE `Rol` (
+  `id` int  NOT NULL AUTO_INCREMENT ,
+  `rol_nombre` varchar(45)NOT NULL,
+  `fecha_reg` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `estado` int default 1,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `usuario_rol` (
+  `id` int  NOT NULL  AUTO_INCREMENT ,
+  `usuario_id`  int(06) NOT NULL,
+  `rol_id` int NOT NULL,
+  `fechaInicio`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `usuario` (
+  `idUsuario` int(06) NOT NULL  AUTO_INCREMENT,
+  `nombreUsuario` varchar(100) not null ,
+  `password` varchar(100) not null ,
+  `paterno` varchar(89) ,
+  `materno` varchar(89) ,
+  `nombre` varchar(45) ,
+  `dni` varchar(8),
+  `direccion` varchar(255),
+  `celular`  char(9),
+  `email` varchar(100),
+   `ruc` varchar(11),
+  `razon_social` varchar(255),
+`  Fecha_registro` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idUsuario`)
+  
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `venta` (
+  `id_venta` int(6) NOT NULL,
+  `fecha_venta` datetime DEFAULT NULL,
+  `total` decimal(7,3)  DEFAULT NULL,
+  `numero_cuotas` int(11) DEFAULT NULL,
+  `estado` varchar(45) NOT NULL,
+  `usuario_id_usuario` int(06) NOT NULL,
+  `pago_id_pago` int NOT NULL,
+   PRIMARY KEY (`id_venta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `venta_producto` (
+  `id_ventaproducto` int(06) NOT NULL,
+  `cantidad` int(11) ,
+  `subtotal` decimal(7,3) ,
+  `producto_id_producto` int ,
+  `venta_id_venta` int(06),
+   PRIMARY KEY (`id_ventaproducto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `producto` (
+  `idProducto` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) ,
+  `marca` varchar(100) ,
+  `precio` decimal (10,4),
+  `direccion` Varchar(255),
+  `descripcion` varchar(255) ,
+  `condicion` varchar(255) ,
+  `id_categoria` int not null,
+  `idFavortio_favorito` int ,
+  `img1` longblob,
+   `idUsuario`  int,
+  `Fecha_registro` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`idProducto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `forma_pago` (
+  `id_forma_pago` int  NOT NULL,
+  `monto` decimal(7,3) ,
+`cod_referencia` varchar(255) ,
+ `marca_tarjeta` varchar(255) DEFAULT NULL,
+  `cuota` int ,
+  `id_producto_producto` int ,
+ PRIMARY KEY (`id_forma_pago`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `pago` (
+  `id_pago` int  NOT NULL,
+  `estado` varchar(255) ,
+  `id_producto_producto` int ,
+   `fecha_pago` datetime ,
+  `id_forma_pago` int ,
+  `id_venta` int ,
+ PRIMARY KEY (`id_pago`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Categoria` (
+  `id_categoria` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+ PRIMARY KEY (`id_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Facturacion` (
+  `id_facturacion` int NOT NULL,
+  `descripcion` varchar(255) ,
+  `unidad_pre` decimal(7,3)  ,
+  `importe` decimal(7,3),
+  `fecha_facturacion` datetime ,
+  `idventa` int(6) ,
+  `id_usuario_usuario` int(6) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `Favoritos` (
+  `id_Favorito` int  not null,
+  `idUsuario_usuario` int(06) NOT NULL,
+  `idproducto_producto` int NOT NULL,
+   PRIMARY KEY (`id_Favorito`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Imagen` (
+  `id_imagen` int  not null,
+  `contenido` longblob NOT NULL,
+  `idproducto_producto` int NOT NULL,
+   PRIMARY KEY (`id_imagen`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+  
+
+
+  
+
+
+ALTER TABLE `usuario` AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `venta` AUTO_INCREMENT = 1;
+
+ALTER TABLE `venta_producto` AUTO_INCREMENT = 1;
+
+
+ALTER TABLE `producto` AUTO_INCREMENT = 1;
+
+
+ 
+  
+    ALTER TABLE `Facturacion`
+  ADD PRIMARY KEY (`id_facturacion`);
+
+
+ALTER TABLE `pago` AUTO_INCREMENT = 1;
+
+ALTER TABLE `forma_pago` AUTO_INCREMENT = 1;
+
+ALTER TABLE `imagen` AUTO_INCREMENT = 1;
+ALTER TABLE `Favoritos` AUTO_INCREMENT = 1;
+ALTER TABLE `Categoria` AUTO_INCREMENT = 1;
+
+
+
+
+
+ALTER TABLE `usuario_rol` AUTO_INCREMENT = 1;
+
+ALTER TABLE `usuario_rol`
+  ADD CONSTRAINT `usuario_roles_fk` FOREIGN KEY (`rol_id`) REFERENCES `Rol` (`id`);
+
+
+
+ALTER TABLE `usuario_rol`
+  ADD CONSTRAINT `usuario_roles_fk3` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idUsuario`);
+
+  
+ALTER TABLE `venta`
+  ADD CONSTRAINT `venta_fk` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `Usuario` (`idUsuario`);
+
+ALTER TABLE `venta`
+  ADD CONSTRAINT `venta_fk2` FOREIGN KEY (`pago_id_pago`) REFERENCES `pago` (`id_pago`);
+
+ALTER TABLE `venta_producto`
+  ADD CONSTRAINT `venta_producto_fk` FOREIGN KEY (`producto_id_producto`) REFERENCES `Producto` (`idProducto`);  
+
+ALTER TABLE `venta_producto`
+  ADD CONSTRAINT `venta_producto_fk2` FOREIGN KEY (`venta_id_venta`) REFERENCES `Venta` (`id_venta`);  
+
+
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_fk` FOREIGN KEY (`id_categoria`) REFERENCES `Categoria` (`id_categoria`); 
+
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_fk2` FOREIGN KEY (`idFavortio_favorito`) REFERENCES `Favoritos` (`id_Favorito`);  
+
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_fk3` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);  
+
+   
+  
+  ALTER TABLE `Facturacion`
+  ADD CONSTRAINT `Facturacion_fk` FOREIGN KEY (`id_usuario_usuario`) REFERENCES `usuario` (`idUsuario`);  
+   
+    ALTER TABLE `Facturacion`
+  ADD CONSTRAINT `Facturacion_fk2` FOREIGN KEY (`idventa`) REFERENCES `Venta` (`id_venta`);
+ALTER TABLE `pago`
+  ADD CONSTRAINT `pago_fk2` FOREIGN KEY (`id_producto_producto`) REFERENCES `Producto` (`idProducto`);
+ALTER TABLE `pago`
+  ADD CONSTRAINT `pago_fk3` FOREIGN KEY (`id_forma_pago`) REFERENCES `forma_pago` (`id_forma_Pago`);
+ALTER TABLE `pago`
+  ADD CONSTRAINT `pago_fk4` FOREIGN KEY (`id_venta`) REFERENCES `Venta` (`id_venta`);
+ALTER TABLE `Favoritos`
+  ADD CONSTRAINT `Favoritos_fk1` FOREIGN KEY (`idUsuario_usuario`) REFERENCES `usuario` (`idUsuario`);
+ALTER TABLE `Favoritos`
+  ADD CONSTRAINT `Favoritos_fk2` FOREIGN KEY (`idproducto_producto`) REFERENCES `Producto` (`idProducto`);
+ALTER TABLE `Imagen`
+  ADD CONSTRAINT `Imagen_fk1` FOREIGN KEY (`idproducto_producto`) REFERENCES `Producto` (`idProducto`);
+
+
+ALTER TABLE `forma_Pago`
+  ADD CONSTRAINT `forma_Pago_fk1` FOREIGN KEY (`id_producto_producto`) REFERENCES `Producto` (`idProducto`);
+
+insert into Rol values(null,"ROLE_ADMIN",null,default);
+insert into Rol values(null,"ROLE_USER",null,default);
+insert into Categoria (nombre) values ("Tecnologia");
+insert into Categoria  (nombre) values ("ElectroDomesticos");
+insert into Categoria  (nombre) values ("Hogar y Muebles");
+insert into Categoria  (nombre) values ("Deportes");
+insert into Categoria (nombre)  values ("Belleza y Cuidado Personal");
+insert into Categoria  (nombre) values ("Herramientas");
+insert into Categoria (nombre) values ("Contruccion");
+insert into Categoria (nombre) values ("Industrias y Oficinas");
+insert into Categoria (nombre) values ("Juegos y juguetes");
+insert into Categoria (nombre) values ("Bebes");
+insert into Categoria (nombre)  values ("Ropa y Acccesorios");
+insert into Categoria (nombre)  values ("Salud y Equipamiento Medico");
+insert into Categoria (nombre)  values ("Accesorios para vehiculos");
