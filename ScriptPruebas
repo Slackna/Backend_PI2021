@@ -1,0 +1,54 @@
+use tienda2021v2;
+select * from Rol;
+select * from usuario_rol;
+select * from producto;
+delete from producto where idUsuario=1;
+select * from usuario;
+select * from categoria;
+
+
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",1,null,null,1,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",1,null,null,1,null);
+insert into Producto values(null,"Tablet","Sony",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",1,null,null,1,null);
+insert into Producto values(null,"Camara","Advance",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",1,null,null,1,null);
+insert into Producto values(null,"Psp","Advance",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",1,null,null,1,null);
+select * from Producto ;
+
+
+select * from Producto where idUsuario=1;
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",2,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",2,null,null,null);
+insert into Producto values(null,"Tablet","Sony",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",2,null,null,null);
+insert into Producto values(null,"Camara","Advance",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",2,null,null,null);
+insert into Producto values(null,"Psp","Advance",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",2,null,null,null);
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",3,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",3,null,null,null);
+insert into Producto values(null,"Tablet","Sony",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",3,null,null,null);
+insert into Producto values(null,"Camara","Advance",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",3,null,null,null);
+insert into Producto values(null,"Psp","Advance",1500,"Los Jiron Pinos","Tablet con camar integrada","Nueva",3,null,null,null);
+
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",4,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",4,null,null,null);
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",5,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",5,null,null,null);
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",6,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",6,null,null,null);
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",7,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",7,null,null,null);
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",8,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",8,null,null,null);
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",9,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",9,null,null,null);
+
+insert into Producto values(null,"Laptop","hp",900,"Los tucanes","Laptop dos meses de uso","Nuevo",10,null,null,null);
+insert into Producto values(null,"Pc","Huawei",1000,"Las Palmas","Pc color negro ","Usado",10,null,null,null);
+
