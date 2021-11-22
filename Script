@@ -47,26 +47,23 @@ CREATE TABLE `usuario` (
 
 
 
-CREATE TABLE `venta` (
-  `id_venta` int(6) NOT NULL,
-  `fecha_venta` datetime DEFAULT NULL,
-  `total` decimal(7,3)  DEFAULT NULL,
-  `numero_cuotas` int(11) DEFAULT NULL,
-  `estado` varchar(45) NOT NULL,
-  `usuario_id_usuario` int(06) NOT NULL,
-  `pago_id_pago` int NOT NULL,
-   PRIMARY KEY (`id_venta`)
+CREATE TABLE `compras` (
+  `idCompras` int(11) AUTO_INCREMENT NOT NULL,
+  `FechaCompras` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `Monto` double DEFAULT NULL,
+  `NombreProducto` varchar(300)DEFAULT NULL,
+  `Estado` varchar(50) DEFAULT NULL,
+  `idUsuario` int(11)  NOT NULL,
+   PRIMARY KEY (`idCompras`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-CREATE TABLE `venta_producto` (
-  `id_ventaproducto` int(06) NOT NULL,
-  `cantidad` int(11) ,
-  `subtotal` decimal(7,3) ,
-  `producto_id_producto` int ,
-  `venta_id_venta` int(06),
-   PRIMARY KEY (`id_ventaproducto`)
+CREATE TABLE `detalle_compras` (
+  `idDetalle` int(10) AUTO_INCREMENT NOT NULL,
+  `FechaRegistro`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `idProducto` int(11)  NOT NULL,
+  `idCompras` int(11)  NOT NULL,
+  PRIMARY KEY (`idDetalle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -80,35 +77,19 @@ CREATE TABLE `producto` (
   `condicion` varchar(255) ,
   `id_categoria` int not null,
   `idFavortio_favorito` int ,
-  `img1` longblob,
+  `img1` longBlob,
    `idUsuario`  int,
   `Fecha_registro` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `forma_pago` (
-  `id_forma_pago` int  NOT NULL,
-  `monto` decimal(7,3) ,
-`cod_referencia` varchar(255) ,
- `marca_tarjeta` varchar(255) DEFAULT NULL,
-  `cuota` int ,
-  `id_producto_producto` int ,
- PRIMARY KEY (`id_forma_pago`)
-
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 CREATE TABLE `pago` (
-  `id_pago` int  NOT NULL,
-  `estado` varchar(255) ,
-  `id_producto_producto` int ,
-   `fecha_pago` datetime ,
-  `id_forma_pago` int ,
-  `id_venta` int ,
- PRIMARY KEY (`id_pago`)
-
+  `idPago` int(11) NOT NULL AUTO_INCREMENT,
+  `Monto` double DEFAULT NULL,
+  PRIMARY KEY (`idPago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `Categoria` (
   `id_categoria` int NOT NULL AUTO_INCREMENT,
@@ -122,7 +103,7 @@ CREATE TABLE `Facturacion` (
   `unidad_pre` decimal(7,3)  ,
   `importe` decimal(7,3),
   `fecha_facturacion` datetime ,
-  `idventa` int(6) ,
+  `idCompra` int(6) ,
   `id_usuario_usuario` int(6) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -141,97 +122,47 @@ CREATE TABLE `Imagen` (
    PRIMARY KEY (`id_imagen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  
-
-
-  
-
-
 ALTER TABLE `usuario` AUTO_INCREMENT=1 ;
-
-
-ALTER TABLE `venta` AUTO_INCREMENT = 1;
-
-ALTER TABLE `venta_producto` AUTO_INCREMENT = 1;
-
-
 ALTER TABLE `producto` AUTO_INCREMENT = 1;
-
-
- 
-  
-    ALTER TABLE `Facturacion`
-  ADD PRIMARY KEY (`id_facturacion`);
-
-
-ALTER TABLE `pago` AUTO_INCREMENT = 1;
-
-ALTER TABLE `forma_pago` AUTO_INCREMENT = 1;
-
+ALTER TABLE `Facturacion`
+ ADD PRIMARY KEY (`id_facturacion`);
 ALTER TABLE `imagen` AUTO_INCREMENT = 1;
 ALTER TABLE `Favoritos` AUTO_INCREMENT = 1;
 ALTER TABLE `Categoria` AUTO_INCREMENT = 1;
-
-
-
-
-
 ALTER TABLE `usuario_rol` AUTO_INCREMENT = 1;
-
 ALTER TABLE `usuario_rol`
-  ADD CONSTRAINT `usuario_roles_fk` FOREIGN KEY (`rol_id`) REFERENCES `Rol` (`id`);
-
-
-
+ ADD CONSTRAINT `usuario_roles_fk` FOREIGN KEY (`rol_id`) REFERENCES `Rol` (`id`);
 ALTER TABLE `usuario_rol`
   ADD CONSTRAINT `usuario_roles_fk3` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idUsuario`);
-
-  
-ALTER TABLE `venta`
-  ADD CONSTRAINT `venta_fk` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `Usuario` (`idUsuario`);
-
-ALTER TABLE `venta`
-  ADD CONSTRAINT `venta_fk2` FOREIGN KEY (`pago_id_pago`) REFERENCES `pago` (`id_pago`);
-
-ALTER TABLE `venta_producto`
-  ADD CONSTRAINT `venta_producto_fk` FOREIGN KEY (`producto_id_producto`) REFERENCES `Producto` (`idProducto`);  
-
-ALTER TABLE `venta_producto`
-  ADD CONSTRAINT `venta_producto_fk2` FOREIGN KEY (`venta_id_venta`) REFERENCES `Venta` (`id_venta`);  
-
-
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_fk` FOREIGN KEY (`id_categoria`) REFERENCES `Categoria` (`id_categoria`); 
-
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_fk2` FOREIGN KEY (`idFavortio_favorito`) REFERENCES `Favoritos` (`id_Favorito`);  
-
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_fk3` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);  
 
-   
-  
-  ALTER TABLE `Facturacion`
-  ADD CONSTRAINT `Facturacion_fk` FOREIGN KEY (`id_usuario_usuario`) REFERENCES `usuario` (`idUsuario`);  
-   
-    ALTER TABLE `Facturacion`
-  ADD CONSTRAINT `Facturacion_fk2` FOREIGN KEY (`idventa`) REFERENCES `Venta` (`id_venta`);
-ALTER TABLE `pago`
-  ADD CONSTRAINT `pago_fk2` FOREIGN KEY (`id_producto_producto`) REFERENCES `Producto` (`idProducto`);
-ALTER TABLE `pago`
-  ADD CONSTRAINT `pago_fk3` FOREIGN KEY (`id_forma_pago`) REFERENCES `forma_pago` (`id_forma_Pago`);
-ALTER TABLE `pago`
-  ADD CONSTRAINT `pago_fk4` FOREIGN KEY (`id_venta`) REFERENCES `Venta` (`id_venta`);
+ ALTER TABLE `Facturacion`
+  ADD CONSTRAINT `Facturacion_fk` FOREIGN KEY (`id_usuario_usuario`) REFERENCES `usuario` (`idUsuario`); 
+
+ ALTER TABLE `Facturacion`
+  ADD CONSTRAINT `Facturacion_fk2` FOREIGN KEY (`idCompra`) REFERENCES `Compras` (`idCompras`);  
+
 ALTER TABLE `Favoritos`
   ADD CONSTRAINT `Favoritos_fk1` FOREIGN KEY (`idUsuario_usuario`) REFERENCES `usuario` (`idUsuario`);
 ALTER TABLE `Favoritos`
   ADD CONSTRAINT `Favoritos_fk2` FOREIGN KEY (`idproducto_producto`) REFERENCES `Producto` (`idProducto`);
 ALTER TABLE `Imagen`
   ADD CONSTRAINT `Imagen_fk1` FOREIGN KEY (`idproducto_producto`) REFERENCES `Producto` (`idProducto`);
+ALTER TABLE `compras`
+  ADD CONSTRAINT `venta_fk` FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`idUsuario`);
 
 
-ALTER TABLE `forma_Pago`
-  ADD CONSTRAINT `forma_Pago_fk1` FOREIGN KEY (`id_producto_producto`) REFERENCES `Producto` (`idProducto`);
+ALTER TABLE `detalle_compras`
+  ADD CONSTRAINT `venta_producto_fk` FOREIGN KEY (`idProducto`) REFERENCES `Producto` (`idProducto`);  
+
+ALTER TABLE `detalle_compras`
+  ADD CONSTRAINT `venta_producto_fk2` FOREIGN KEY (`idCompras`) REFERENCES `Compras` (`idCompras`);  
+  
 
 insert into Rol values(null,"ROLE_ADMIN",null,default);
 insert into Rol values(null,"ROLE_USER",null,default);
