@@ -13,4 +13,5 @@ public interface ProductoService {
 	public abstract List<Producto> listaProductoByCat(int  idCategoria);
 	public abstract Producto insertaActualizaProducto(Producto obj);
 	public abstract Optional<Producto> obtienePorId(int idProducto);
+	public abstract List<Producto> listaProductoporUsuario(int  idUsuario);
 }

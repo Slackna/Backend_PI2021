@@ -54,11 +54,6 @@ public class UsuarioController {
 		return ResponseEntity.ok(lista);
 	}
 	
-	 @GetMapping("/buscarUsuario/{nombre}")
-	    public ResponseEntity<Usuario> getByNombreUsuario(@PathVariable("nombre") String nombre){
-	        Optional<Usuario> usuario = usuarioService.getByNombreUsuario(nombre);
-	        return new ResponseEntity(usuario, HttpStatus.OK);
-	    }
 	
 	
 
@@ -71,8 +66,8 @@ public class UsuarioController {
 		if (usuarioService.existsByEmail(nuevoUsuario.getEmail()))
 			return new ResponseEntity(new Mensaje("Ese email ya existe"), HttpStatus.OK);
 		Usuario usuario = new Usuario(nuevoUsuario.getNombreUsuario(),
-				passwordEncoder.encode(nuevoUsuario.getPassword()), nuevoUsuario.getPaterno(),
-				nuevoUsuario.getMaterno(), nuevoUsuario.getNombre(), nuevoUsuario.getDni(), nuevoUsuario.getDireccion(),
+				passwordEncoder.encode(nuevoUsuario.getPassword()), nuevoUsuario.getNombre(),
+				nuevoUsuario.getPaterno(), nuevoUsuario.getMaterno(), nuevoUsuario.getDni(), nuevoUsuario.getDireccion(),
 				nuevoUsuario.getCelular(), nuevoUsuario.getEmail(), nuevoUsuario.getRuc(),
 				nuevoUsuario.getRazonSocial());
 		Set<Rol> roles = new HashSet<>();

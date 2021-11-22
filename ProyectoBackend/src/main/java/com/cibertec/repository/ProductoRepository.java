@@ -13,5 +13,7 @@ public interface ProductoRepository  extends JpaRepository<Producto, Integer>  {
 
 	@Query("SELECT pro FROM Producto pro  WHERE pro.categoria.id_categoria=(:id_categoria)")
 	List<Producto> findByCat(@Param("id_categoria") int id_categoria);
-
+    
+	@Query("SELECT pro FROM Producto pro  WHERE pro.usuario.idUsuario=(:idUsuario)")
+	List<Producto> ListaporUsuario(@Param("idUsuario") int idUsuario);
 }

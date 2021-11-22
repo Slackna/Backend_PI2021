@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.cibertec.entity.Categoria;
+import com.cibertec.entity.DetalleCompras;
 import com.cibertec.entity.Producto;
 import com.cibertec.service.ProductoService;
 import com.cibertec.util.Constantes;
@@ -49,12 +51,19 @@ public class ProductoController {
 		return ResponseEntity.ok(lista);
 	}
 	
+	@GetMapping(value = "/listaProductoByUsuario")
+	@ResponseBody
+	public ResponseEntity<List<Producto>> listaProductoByUsuario(int idUsuario) {
+		List<Producto> lista = productoService.listaProductoporUsuario(idUsuario);
+		return ResponseEntity.ok(lista);
+	}
 	@ResponseBody
 	@PostMapping(value = "/registraProducto")
 	public Map<String, Object> registra(@RequestBody Producto nuevoProducto) {
+		
 		Map<String, Object> salida = new HashMap<>();
+		
 		try {
-
 			Producto objSalida = productoService.insertaActualizaProducto(nuevoProducto);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
@@ -67,7 +76,8 @@ public class ProductoController {
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 		}
 		return salida;
-	}
+
+}
 	
 	 @GetMapping("/detail/{id}")
 	    public ResponseEntity<Producto> getById(@PathVariable("id") int id){

@@ -54,5 +54,11 @@ public class ProductoServicelmpl   implements ProductoService {
 		return repository.findByCat(idCategoria);
 	}
 
+	@Override
+	public List<Producto> listaProductoporUsuario(int idUsuario) {
+		// TODO Auto-generated method stub
+		return repository.ListaporUsuario(idUsuario);
+	}
+
 
 }

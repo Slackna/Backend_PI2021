@@ -60,7 +60,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http.cors().and().csrf().disable()
 	                .authorizeRequests()
-	                .antMatchers("/rest/**","/util/**").permitAll()
+	                .antMatchers("/rest/**","/util/**","/producto/listaProductoByCat","/producto/listaProducto").permitAll()
 	                .anyRequest().authenticated()
 	                .and()
 	                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)

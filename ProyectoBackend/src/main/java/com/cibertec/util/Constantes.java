@@ -14,4 +14,5 @@ public class Constantes {
 	public static final String MENSAJE_ELI_EXITOSO = "Se eliminó correctamente.";
 	public static final String MENSAJE_ELI_NO_EXISTE_ID = "No existe el ID que se desea eliminar.";
 	
-	public static final String MENSAJE_DNI_YA_EXISTE = "Ya existe dicho el DNI : ";}
+	public static final String MENSAJE_DNI_YA_EXISTE = "Ya existe dicho el DNI : ";
+    public static final String MENSAJE_COMPRA_EXITOSA = "Compra Exitosa :) : ";}

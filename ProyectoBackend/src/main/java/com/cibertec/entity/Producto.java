@@ -1,5 +1,8 @@
 package com.cibertec.entity;
 
+import java.sql.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +12,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @Table(name = "producto")
@@ -33,6 +39,12 @@ public class Producto {
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
+	
+	@Column(name = "Fecha_registro")
+	private Date fecha;
+	
+	public Producto() {
+	}
 	
 	public int getIdProducto() {
 		return idProducto;
@@ -86,12 +98,7 @@ public class Producto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	public byte[] getImg1() {
-		return img1;
-	}
-	public void setImg1(byte[] img1) {
-		this.img1 = img1;
-	}
+	
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -100,6 +107,26 @@ public class Producto {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public byte[] getImg1() {
+		return img1;
+	}
+
+	public void setImg1(byte[] img1) {
+		this.img1 = img1;
+	}
+
+	
+    
+	
 
 	
 
