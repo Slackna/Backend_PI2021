@@ -14,4 +14,5 @@ public interface ComprasService {
 	Compras save (Compras compra);
 	List<Compras> findByUsuario (Usuario usuario);
 	public abstract List<Compras> listaComprasPorUsuario(int  idUsuario);
+	public abstract Compras insertaActualizaDocente(Compras obj);
 }

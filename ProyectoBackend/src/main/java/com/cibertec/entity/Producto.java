@@ -33,8 +33,7 @@ public class Producto {
 	@JoinColumn(name = "id_categoria")
 	private Categoria categoria;
 
-	@Lob
-	private byte[] img1;
+	private String img1;
     
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
@@ -116,13 +115,14 @@ public class Producto {
 		this.fecha = fecha;
 	}
 
-	public byte[] getImg1() {
+	public String getImg1() {
 		return img1;
 	}
 
-	public void setImg1(byte[] img1) {
+	public void setImg1(String img1) {
 		this.img1 = img1;
 	}
+
 
 	
     

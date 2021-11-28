@@ -52,6 +52,12 @@ public class ComprasServicelpml implements ComprasService{
 		return comprasRepository.ListaporUsuario(idUsuario);
 	}
 
+	@Override
+	public Compras insertaActualizaDocente(Compras obj) {
+		// TODO Auto-generated method stub
+		return comprasRepository.save(obj);
+	}
+
 	
 	
 

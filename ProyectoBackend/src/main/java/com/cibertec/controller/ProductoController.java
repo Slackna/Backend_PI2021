@@ -1,6 +1,8 @@
 package com.cibertec.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,12 +61,17 @@ public class ProductoController {
 		return ResponseEntity.ok(lista);
 	}
 	@ResponseBody
-	@PostMapping(value = "/registraProducto")
-	public Map<String, Object> registra(@RequestBody Producto nuevoProducto) {
+	@PostMapping(value = "/registraProducto"/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
+	public Map<String, Object> registra(@RequestPart(name = "files")  MultipartFile files)  {
 		
 		Map<String, Object> salida = new HashMap<>();
+		List<String> filenames=new ArrayList<>();
 		
-		try {
+		Arrays.asList(files).stream().forEach(file->{
+			filenames.add(file.getOriginalFilename());
+		});
+		
+		/*try {
 			Producto objSalida = productoService.insertaActualizaProducto(nuevoProducto);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
@@ -74,7 +82,8 @@ public class ProductoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-		}
+		}*/
+		salida.put("mensaje", filenames.toString());
 		return salida;
 
 }

@@ -8,10 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import com.cibertec.entity.Compras;
 import com.cibertec.entity.DetalleCompras;
+import com.cibertec.entity.Pedido;
 
-public interface DetalleComprasRepository extends JpaRepository<DetalleCompras, Integer> {
-	@Query("SELECT pro FROM DetalleCompras pro  WHERE pro.compras.idCompras=(:idCompras)")
-	List<DetalleCompras> ListaporCompra(@Param("idCompras") int idCompras);
-	
-								 	
+public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
+	@Query("SELECT pro FROM Pedido pro  WHERE pro.usuario.idUsuario=(:idUsuario)")
+	List<Pedido> ListapedidoPorUsuario(@Param("idUsuario") int idUsuario);
 }

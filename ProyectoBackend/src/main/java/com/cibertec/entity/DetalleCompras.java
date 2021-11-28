@@ -18,6 +18,7 @@ public class DetalleCompras {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idDetalle;
+	
 	private Date FechaRegistro;
 	@ManyToOne
 	@JoinColumn(name = "idProducto")

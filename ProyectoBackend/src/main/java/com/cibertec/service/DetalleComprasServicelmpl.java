@@ -1,5 +1,7 @@
 package com.cibertec.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +23,15 @@ public class DetalleComprasServicelmpl implements DetalleComprasService{
 		return detalleComprasRepository.save(detalleCompras);
 	}
 
+	
+
+	@Override
+	public List<DetalleCompras> lista(int idCompras) {
+		// TODO Auto-generated method stub
+		return detalleComprasRepository.ListaporCompra(idCompras);
+	}
+
+	
+
+	
 }

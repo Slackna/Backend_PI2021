@@ -29,12 +29,18 @@ public class Compras {
 	@Column(name = "FechaCompras")
 	private Date fecha;
 	private double Monto;
-	private String Estado;
+	private int Estado;
+	private String direccion;
+	private String pais;
+	private String distrito;
+	private String provincia;
+	private int codigoPostal;
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 	
     private String NombreProducto;
+    private String nota;
 	
 	public Compras() {
 	}
@@ -60,10 +66,10 @@ public class Compras {
 	public void setMonto(double monto) {
 		Monto = monto;
 	}
-	public String getEstado() {
+	public int getEstado() {
 		return Estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(int estado) {
 		Estado = estado;
 	}
 
@@ -89,6 +95,78 @@ public class Compras {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+
+
+	public String getPais() {
+		return pais;
+	}
+
+
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+
+
+	public String getDistrito() {
+		return distrito;
+	}
+
+
+
+	public void setDistrito(String distrito) {
+		this.distrito = distrito;
+	}
+
+
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+
+
+	public int getCodigoPostal() {
+		return codigoPostal;
+	}
+
+
+
+	public void setCodigoPostal(int codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+
+
+	public String getNota() {
+		return nota;
+	}
+
+
+
+	public void setNota(String nota) {
+		this.nota = nota;
 	}
 
 
