@@ -52,7 +52,13 @@ CREATE TABLE `compras` (
   `FechaCompras` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `Monto` double DEFAULT NULL,
   `NombreProducto` varchar(300)DEFAULT NULL,
-  `Estado` varchar(50) DEFAULT NULL,
+  `Estado` int DEFAULT NULL,
+  `direccion` varchar(50) DEFAULT NULL,
+  `pais` varchar(50) DEFAULT NULL,
+  `distrito` varchar(50) DEFAULT NULL,
+  `provincia` varchar(50) DEFAULT NULL,
+  `codigoPostal` int DEFAULT NULL,
+  `nota` varchar(50) DEFAULT NULL,
   `idUsuario` int(11)  NOT NULL,
    PRIMARY KEY (`idCompras`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -66,6 +72,13 @@ CREATE TABLE `detalle_compras` (
   PRIMARY KEY (`idDetalle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `pedido_detalle` (
+  `idPedido` int(10) AUTO_INCREMENT NOT NULL,
+  `idDetalle`  int(10) NOT NULL,
+  `idUsuario` int(11)  NOT NULL,
+  `fechaPedido` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`idPedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `producto` (
   `idProducto` int NOT NULL AUTO_INCREMENT,
@@ -77,7 +90,7 @@ CREATE TABLE `producto` (
   `condicion` varchar(255) ,
   `id_categoria` int not null,
   `idFavortio_favorito` int ,
-  `img1` longBlob,
+  `img1` varchar(250) ,
    `idUsuario`  int,
   `Fecha_registro` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`idProducto`)
@@ -162,6 +175,12 @@ ALTER TABLE `detalle_compras`
 
 ALTER TABLE `detalle_compras`
   ADD CONSTRAINT `venta_producto_fk2` FOREIGN KEY (`idCompras`) REFERENCES `Compras` (`idCompras`);  
+
+ALTER TABLE `pedido_detalle`
+  ADD CONSTRAINT `venta_producto_fk3` FOREIGN KEY (`idDetalle`) REFERENCES `Compras` (`idCompras`);  
+
+ALTER TABLE `pedido_detalle`
+  ADD CONSTRAINT `venta_producto_fk4` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);  
   
 
 insert into Rol values(null,"ROLE_ADMIN",null,default);
