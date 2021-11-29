@@ -1,7 +1,9 @@
 package com.cibertec.controller;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,17 +19,20 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cibertec.entity.Compras;
 import com.cibertec.entity.Producto;
 import com.cibertec.entity.Usuario;
 import com.cibertec.security.dto.NuevoUsuario;
 import com.cibertec.security.entity.Rol;
 import com.cibertec.security.service.RolService;
 import com.cibertec.service.UsuarioService;
+import com.cibertec.util.Constantes;
 import com.cibertec.util.Mensaje;
 
 @RestController
@@ -54,6 +59,27 @@ public class UsuarioController {
 		return ResponseEntity.ok(lista);
 	}
 	
+	 @PutMapping("/actualiza")
+		@ResponseBody
+		public ResponseEntity<Map<String, Object>> actualizaDocente(@RequestBody Usuario obj) {
+			Map<String, Object> salida = new HashMap<>();
+			try {
+				if (obj.getIdUsuario() == 0) {
+					salida.put("mensaje", "El ID del Docente debe ser diferente cero");
+					return ResponseEntity.ok(salida);
+				}
+				Usuario objSalida = usuarioService.insertaActualizaUsuario(obj);
+				if (objSalida == null) {
+					salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+				} else {
+					salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+			}
+			return ResponseEntity.ok(salida);
+		}
 	
 	
 

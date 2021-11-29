@@ -1,6 +1,9 @@
 package com.cibertec.controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +36,7 @@ import com.cibertec.entity.DetalleCompras;
 import com.cibertec.entity.Producto;
 import com.cibertec.service.ProductoService;
 import com.cibertec.util.Constantes;
+import com.cibertec.util.ImagenUtil;
 
 @RestController
 @RequestMapping("/producto")
@@ -62,16 +67,11 @@ public class ProductoController {
 	}
 	@ResponseBody
 	@PostMapping(value = "/registraProducto"/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
-	public Map<String, Object> registra(@RequestPart(name = "files")  MultipartFile files)  {
+	public Map<String, Object> registra(@RequestBody Producto nuevoProducto)  {
 		
 		Map<String, Object> salida = new HashMap<>();
-		List<String> filenames=new ArrayList<>();
 		
-		Arrays.asList(files).stream().forEach(file->{
-			filenames.add(file.getOriginalFilename());
-		});
-		
-		/*try {
+		try {
 			Producto objSalida = productoService.insertaActualizaProducto(nuevoProducto);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
@@ -82,11 +82,37 @@ public class ProductoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-		}*/
-		salida.put("mensaje", filenames.toString());
+		}
+		
 		return salida;
 
 }
+	@ResponseBody
+	@PostMapping(value = "/registraImagenes")
+	public Map<String, Object> registraImagen(@RequestPart(name = "files")  MultipartFile files)  {
+		
+		Map<String, Object> salida = new HashMap<>();
+		
+		//List<String> filenames = new ArrayList<String>();
+		
+		
+		try {
+			
+			byte[] bytes=files.getBytes();
+			Path path=Paths.get("C:\\Users\\Home\\Desktop\\BackendProeyecto_Version2\\Backend_PI2021\\ProyectoBackend\\img"+files.getOriginalFilename());
+			
+			Files.write(path, bytes);
+			
+			salida.put("mensaje", files.getOriginalFilename());
+			
+		} catch (Exception e) {
+			salida.put("mensaje", e.getMessage());
+		}
+		//"C:\\Users\\Home\\Desktop\\FrontEndProyecto_Version2\\FrontEnd_PI2021\\ProyectoFrontend\\src\\assets\\img\\"
+		return salida;
+}
+
+	
 	
 	 @GetMapping("/detail/{id}")
 	    public ResponseEntity<Producto> getById(@PathVariable("id") int id){

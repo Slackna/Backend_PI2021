@@ -33,6 +33,8 @@ public class Producto {
 	@JoinColumn(name = "id_categoria")
 	private Categoria categoria;
 
+
+
 	private String img1;
     
 	@ManyToOne
@@ -123,6 +125,8 @@ public class Producto {
 		this.img1 = img1;
 	}
 
+	
+	
 
 	
     
