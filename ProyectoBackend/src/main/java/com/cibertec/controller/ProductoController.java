@@ -99,16 +99,16 @@ public class ProductoController {
 		try {
 			
 			byte[] bytes=files.getBytes();
-			Path path=Paths.get("C:\\Users\\Home\\Desktop\\BackendProeyecto_Version2\\Backend_PI2021\\ProyectoBackend\\img"+files.getOriginalFilename());
+			Path path=Paths.get("http://localhost:4200/assets/img/");
 			
 			Files.write(path, bytes);
 			
-			salida.put("mensaje", files.getOriginalFilename());
+			salida.put("mensaje", files.getName());
 			
 		} catch (Exception e) {
 			salida.put("mensaje", e.getMessage());
 		}
-		//"C:\\Users\\Home\\Desktop\\FrontEndProyecto_Version2\\FrontEnd_PI2021\\ProyectoFrontend\\src\\assets\\img\\"
+		
 		return salida;
 }
 
